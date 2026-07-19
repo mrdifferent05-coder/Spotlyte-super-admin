@@ -1,0 +1,18 @@
+{
+  "name": "spotlyte-admin",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Spotlyte Super Admin Console — internal command center for the Spotlyte sports-venue booking marketplace",
+  "workspaces": [
+    "apps/*"
+  ],
+  "scripts": {
+    "seed": "npm run seed --workspace apps/api",
+    "dev:api": "npm run dev --workspace apps/api",
+    "dev:web": "npm run dev --workspace apps/admin-web",
+    "dev": "npm run dev:api & npm run dev:web",
+    "build": "npm run build --workspace apps/admin-web",
+    "start:api": "npm run start --workspace apps/api",
+    "start:web": "npm run start --workspace apps/admin-web"
+  }
+}

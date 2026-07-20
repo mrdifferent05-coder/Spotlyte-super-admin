@@ -6,7 +6,7 @@ Two apps in one npm-workspaces monorepo:
 | App | Stack | Port |
 |---|---|---|
 | `apps/api` | Node.js · Express · **Apollo Server 4** (`expressMiddleware` at `POST /graphql`) · **MongoDB native driver only** (no Mongoose, no ODM) | `:4000` |
-| `apps/admin-web` | **Next.js 14 App Router** · React 18 · Tailwind CSS (tokens via CSS variables) · **Apollo Client** (SSR-safe registry pattern) | `:3000` |
+| `apps/admin-web` | **Next.js 14 App Router** (JavaScript / JSX) · React 18 · Tailwind CSS (tokens via CSS variables) · **Apollo Client** (SSR-safe registry pattern) | `:3000` |
 
 The console covers the whole marketplace operation: owner KYC onboarding, venue
 approvals & featuring, all bookings & refunds, customer moderation, review
@@ -96,14 +96,14 @@ admin mutation writes an immutable audit row** — nothing ever edits or deletes
 `auditLogs`.
 
 **Auth** — `adminLoginV2` verifies bcrypt, signs a 12h JWT into the httpOnly
-`spotlyte_admin` cookie (sameSite=lax); `middleware.ts` bounces cookie-less
+`spotlyte_admin` cookie (sameSite=lax); `middleware.js` bounces cookie-less
 visitors to `/login`; Apollo Client sends `credentials:'include'` and a
 top-level error link redirects on `UNAUTHENTICATED`. Logins are audited with
 request IP.
 
 **Design system** — the approved warm-paper editorial identity is reproduced
 exactly: tokens from spec §5.2 as CSS variables (mapped into
-`tailwind.config.ts`), Outfit / Archivo / Instrument Serif italic / JetBrains
+`tailwind.config.js`), Outfit / Archivo / Instrument Serif italic / JetBrains
 Mono via `next/font`, the 60-name inline SVG icon set (24px grid, 1.6 stroke),
 light/dark + compact/regular/comfy density toggles persisted on `<html>`,
 dark-pill toasts, and the full shared-UI kit of §7 (`StatCard`, `Panel`,
@@ -134,5 +134,5 @@ apps/admin-web
 │                           Topbar, ⌘K palette, settings menu)
 ├─ lib/                     apollo (SSR-safe) · gql documents · format (fmtINR,
 │                           avColor, initials) · toast · csv export
-└─ middleware.ts            auth redirect for all console routes
+└─ middleware.js            auth redirect for all console routes
 ```
